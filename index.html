@@ -957,7 +957,7 @@
 
     <div class="app-container">
       <!-- ÉCRAN 1: DASHBOARD -->
-      <div id="dashboard" class="screen">
+      <div id="dashboard" class="screen active">
         <div class="header" style="position: relative">
           <h1>🏗️ PEC Tech - Conformité 100%</h1>
           <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%)">
@@ -1099,8 +1099,35 @@
       </div>
 
       <!-- ÉCRAN 2: LISTE ÉQUIPEMENTS -->
-      <div id="equipmentList" class="screen active">
-        <div class="header" style="position: relative">
+      <div id="equipmentList" class="screen">
+<!-- DASHBOARD -->
+<div id="dashboard-screen" class="screen active" style="padding: 20px;">
+  <h1 style="font-size: 22px; margin-bottom: 20px;">🏠 DeltaOptimaPEC — Accueil</h1>
+
+  <div style="display: flex; flex-direction: column; gap: 15px;">
+    <button style="padding: 12px; border-radius: 8px; background: #1f2937; color: white; font-size: 16px;"
+            onclick="document.getElementById('dashboard-screen').style.display='none';">
+      🔍 Démarrer un relevé
+    </button>
+
+    <button style="padding: 12px; border-radius: 8px; background: #374151; color: white; font-size: 16px;"
+            onclick="document.getElementById('dashboard-screen').style.display='none';">
+      📂 Continuer un relevé
+    </button>
+
+    <button style="padding: 12px; border-radius: 8px; background: #4b5563; color: white; font-size: 16px;"
+            onclick="document.getElementById('dashboard-screen').style.display='none';">
+      📋 Consulter les lots
+    </button>
+
+    <button style="padding: 12px; border-radius: 8px; background: #6b7280; color: white; font-size: 16px;"
+            onclick="document.getElementById('dashboard-screen').style.display='none';">
+      🔄 Synchroniser
+    </button>
+  </div>
+</div>
+          
+          <div class="header" style="position: relative">
           <button class="nav-button" id="btnRetourLots">← Accueil</button>
           <h1 id="currentLotTitle">Structure / GO</h1>
         </div>
