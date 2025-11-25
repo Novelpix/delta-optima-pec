@@ -2282,23 +2282,64 @@ localStorage.clear();
       ];
 
       const EQUIPMENT_TYPES_BY_LOT = {
-        'Structure / GO': ['Dalle', 'Poutre', 'Poteau', 'Voile', 'Plancher', 'Autre'],
-        Enveloppe: ['Façade', 'Menuiserie', 'Garde-corps', 'Bardage', 'Autre'],
-        Toitures: ['Étanchéité', 'Couverture', 'Charpente', 'Zinguerie', 'Autre'],
-        'CVC Production': ['Chaudière', 'Pompe à chaleur', 'Groupe froid', 'Ballon ECS', 'Autre'],
-        'CVC Distribution': ['Réseau hydraulique', 'Pompe', 'Vanne', 'Échangeur', 'Autre'],
-        'CVC Émission': ['Radiateur', 'Plancher chauffant', 'Ventilo-convecteur', 'Cassette', 'Autre'],
-        Ventilation: ['CTA', 'VMC', 'Extracteur', 'Réseau aéraulique', 'Autre'],
-        'Électricité CFO': ['TGBT', 'Tableau divisionnaire', 'Éclairage', 'Prise', 'Autre'],
-        'Électricité CFA/GTB': ['Armoire GTB', 'Automate', 'Capteur', 'Interface', 'Autre'],
-        SSI: ['Centrale SSI', 'Détecteur', 'DM', 'BAAS', 'Autre'],
-        Plomberie: ['Réseau EU', 'Réseau EP', 'Réseau ECS', 'Réseau EF', 'Autre'],
-        Ascenseurs: ['Ascenseur', 'Monte-charge', 'Autre'],
-        'Locaux techniques': ['Local CVC', 'Local électrique', 'Local SSI', 'Autre'],
-        EnR: ['Panneaux PV', 'Éolienne', 'Géothermie', 'Solaire thermique', 'Autre'],
-        IoT: ['Capteur T°C', 'Capteur CO2', 'Capteur présence', 'Gateway', 'Autre'],
-        HSE: ['Point de contrôle', 'Zone à risque', 'Autre']
-      };
+  'Structure / GO': ['Dalle', 'Poutre', 'Poteau', 'Voile', 'Plancher', 'Autre'],
+  Enveloppe: ['Façade', 'Menuiserie', 'Garde-corps', 'Bardage', 'Autre'],
+  Toitures: ['Étanchéité', 'Couverture', 'Charpente', 'Zinguerie', 'Autre'],
+
+  // CVC – on ajoute les contrôles d’eau et les débits d’air
+  'CVC Production': ['Chaudière', 'Pompe à chaleur', 'Groupe froid', 'Ballon ECS', 'Autre'],
+  'CVC Distribution': [
+    'Réseau hydraulique',
+    'Pompe',
+    'Vanne',
+    'Échangeur',
+    'Contrôle des compteurs d’eau',
+    'Contrôle qualité d’eau',
+    'Autre'
+  ],
+  'CVC Émission': ['Radiateur', 'Plancher chauffant', 'Ventilo-convecteur', 'Cassette', 'Autre'],
+  Ventilation: [
+    'CTA',
+    'VMC',
+    'Extracteur',
+    'Réseau aéraulique',
+    'Relevé des débits d’air dans les sanitaires',
+    'Autre'
+  ],
+
+  // Électricité / GTB – on ajoute une fiche GTB globale
+  'Électricité CFO': ['TGBT', 'Tableau divisionnaire', 'Éclairage', 'Prise', 'Autre'],
+  'Électricité CFA/GTB': [
+    'Armoire GTB',
+    'Automate',
+    'Capteur',
+    'Interface',
+    'Synthèse GTB / cohérence relevés',
+    'Autre'
+  ],
+
+  // SSI
+  SSI: ['Centrale SSI', 'Détecteur', 'DM', 'BAAS', 'Autre'],
+
+  // Plomberie – compteurs + qualité d’eau
+  Plomberie: [
+    'Réseau EU',
+    'Réseau EP',
+    'Réseau ECS',
+    'Réseau EF',
+    'Contrôle des compteurs d’eau',
+    'Contrôle qualité d’eau',
+    'Autre'
+  ],
+
+  // Autres lots
+  Ascenseurs: ['Ascenseur', 'Monte-charge', 'Autre'],
+  'Locaux techniques': ['Local CVC', 'Local électrique', 'Local SSI', 'Autre'],
+  EnR: ['Panneaux PV', 'Éolienne', 'Géothermie', 'Solaire thermique', 'Autre'],
+  IoT: ['Capteur T°C', 'Capteur CO2', 'Capteur présence', 'Gateway', 'Autre'],
+  HSE: ['Point de contrôle', 'Zone à risque', 'Autre']
+};
+
 
       // ═══════════════════════════════════════════════════
       // STATE MANAGEMENT
