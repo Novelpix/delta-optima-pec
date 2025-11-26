@@ -3316,10 +3316,10 @@
         });
 
         console.log('📊 Données envoyées vers Google Sheets');
-        showToast('📊 Synchronisé avec Google Sheets', 'success');
+        return true;
       } catch (error) {
         console.error('❌ Erreur Google Sheets:', error);
-        showToast('⚠️ Erreur de synchronisation Google Sheets', 'warning');
+        throw error;
       }
     }
 
@@ -3375,7 +3375,7 @@
     // SAUVEGARDE ÉQUIPEMENT (🆕 AVEC NOUVEAUX CHAMPS)
     // ═══════════════════════════════════════════════════════════════════════
 
-    function saveEquipment() {
+    async function saveEquipment() {
       if (!AppState.currentLot) {
         showToast('❌ Erreur: aucun lot sélectionné', 'error');
         return;
@@ -3479,18 +3479,46 @@
       saveToLocalStorage();
       showToast('✅ Équipement enregistré avec succès', 'success');
 
+      // 🔄 Synchronisation asynchrone avec attente
+      let syncCount = 0;
+      let syncTotal = 0;
+
       if (AppState.googleSheetsEnabled && AppState.googleSheetsUrl) {
-        sendToGoogleSheets(equipment);
+        syncTotal++;
+        showToast('🔄 Synchronisation Google Sheets...', 'info');
+        try {
+          await sendToGoogleSheets(equipment);
+          syncCount++;
+        } catch (error) {
+          console.error('Erreur sync Google Sheets:', error);
+        }
       }
 
       if (typeof supabaseClient !== 'undefined' && supabaseClient) {
-        sendToSupabase(equipment);
+        syncTotal++;
+        showToast('🔄 Synchronisation Supabase...', 'info');
+        try {
+          await sendToSupabase(equipment);
+          syncCount++;
+        } catch (error) {
+          console.error('Erreur sync Supabase:', error);
+        }
       }
 
+      // Afficher le résultat de la synchronisation
+      if (syncTotal > 0) {
+        if (syncCount === syncTotal) {
+          showToast(`✅ Synchronisation complète (${syncCount}/${syncTotal})`, 'success');
+        } else {
+          showToast(`⚠️ Synchronisation partielle (${syncCount}/${syncTotal})`, 'warning');
+        }
+      }
+
+      // Attendre un peu avant de changer d'écran
       setTimeout(() => {
         showScreen('equipmentList');
         renderEquipmentList();
-      }, 1000);
+      }, 1500);
     }
 
     // ═══════════════════════════════════════════════════════════════════════
@@ -3565,8 +3593,7 @@
 
         if (error) {
           console.error("Erreur upsert Supabase :", error);
-          showToast('❌ Erreur lors de l\'envoi vers Supabase', 'error');
-          return;
+          throw new Error(error.message || 'Erreur lors de l\'envoi vers Supabase');
         }
 
         console.log("Équipement upsert dans Supabase :", upserted);
@@ -3607,10 +3634,11 @@
           }
         }
 
-        showToast('✅ Équipement envoyé à Supabase', 'success');
+        console.log('✅ Équipement envoyé à Supabase avec succès');
+        return true;
       } catch (e) {
         console.error("Erreur sendToSupabase (exception) :", e);
-        showToast('❌ Erreur technique Supabase', 'error');
+        throw e;
       }
     }
 
