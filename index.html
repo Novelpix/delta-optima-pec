@@ -4097,9 +4097,14 @@
     // ═══════════════════════════════════════════════════════════════════════
 
     function loadJournalVisite() {
-      const saved = localStorage.getItem('pecTechJournal');
-      if (saved) {
-        AppState.journalVisite = JSON.parse(saved);
+      try {
+        const saved = localStorage.getItem('pecTechJournal');
+        if (saved) {
+          AppState.journalVisite = JSON.parse(saved);
+        }
+      } catch (e) {
+        console.error('❌ Erreur lors du chargement du journal de visite:', e);
+        showToast('⚠️ Erreur de chargement du journal', 'error');
       }
       document.getElementById('journalIncidents').value = AppState.journalVisite.incidents || '';
       document.getElementById('journalZonesNonVisitees').value = AppState.journalVisite.zonesNonVisitees || '';
@@ -4121,9 +4126,14 @@
     // ═══════════════════════════════════════════════════════════════════════
 
     function loadSyntheseTerrain() {
-      const saved = localStorage.getItem('pecTechSynthese');
-      if (saved) {
-        AppState.syntheseTerrain = JSON.parse(saved);
+      try {
+        const saved = localStorage.getItem('pecTechSynthese');
+        if (saved) {
+          AppState.syntheseTerrain = JSON.parse(saved);
+        }
+      } catch (e) {
+        console.error('❌ Erreur lors du chargement de la synthèse terrain:', e);
+        showToast('⚠️ Erreur de chargement de la synthèse', 'error');
       }
       document.getElementById('syntheseForces').value = AppState.syntheseTerrain.forces || '';
       document.getElementById('syntheseFaiblesses').value = AppState.syntheseTerrain.faiblesses || '';
